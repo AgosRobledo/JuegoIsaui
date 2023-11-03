@@ -58,29 +58,29 @@ def crear_ventana():
     formulario_frame.grid(padx=10, pady=10)
 
     # Título del formulario
-    titulo_label = tk.Label(formulario_frame, text="Jugador", bg="#B591B6", font=("Arial", 20, 'bold'))
+    titulo_label = tk.Label(formulario_frame, text="Jugador", bg="#B591B6", font=("Arial", 22, 'bold'))
     titulo_label.grid(row=0, column=0, columnspan=2, pady=10)
 
     # Campos de entrada para nombre, apellido y teléfono con el mismo ancho que el ComboBox
-    nombre_label = tk.Label(formulario_frame, text="Nombre:", bg="#B591B6", font=("Arial", 15))
+    nombre_label = tk.Label(formulario_frame, text="Nombre:", bg="#B591B6", font=("Arial", 17))
     nombre_label.grid(row=1, column=0)
     nombre_entry = tk.Entry(formulario_frame)
     nombre_entry.grid(row=1, column=1, padx=5, pady=5, ipadx=5, ipady=5, sticky="ew")
 
-    apellido_label = tk.Label(formulario_frame, text="Apellido:", bg="#B591B6", font=("Arial", 15))
+    apellido_label = tk.Label(formulario_frame, text="Apellido:", bg="#B591B6", font=("Arial", 17))
     apellido_label.grid(row=2, column=0)
     apellido_entry = tk.Entry(formulario_frame)
     apellido_entry.grid(row=2, column=1, padx=5, pady=5, ipadx=5, ipady=5, sticky="ew")
 
-    telefono_label = tk.Label(formulario_frame, text="Teléfono:", bg="#B591B6", font=("Arial", 15))
+    telefono_label = tk.Label(formulario_frame, text="Teléfono:", bg="#B591B6", font=("Arial", 17))
     telefono_label.grid(row=3, column=0)
     telefono_entry = tk.Entry(formulario_frame)
     telefono_entry.grid(row=3, column=1, padx=5, pady=5, ipadx=5, ipady=5, sticky="ew")
 
-    jugar_button = tk.Button(formulario_frame, text="JUGAR", bg="#9E5B00", font=("Arial", 8, 'bold'), command=lambda:iniciar_juego(nombre_entry,apellido_entry,telefono_entry))
+    jugar_button = tk.Button(formulario_frame, text="JUGAR", bg="#9E5B00", font=("Arial", 10, 'bold'), command=lambda:iniciar_juego(nombre_entry,apellido_entry,telefono_entry))
     jugar_button.grid(row=6, columnspan=2, pady=1, sticky="ew")
 
-    jugar_button = tk.Button(formulario_frame, text="SALIR", bg="#9E5B00", font=("Arial", 8, 'bold'), command=lambda:salir_pantalla_princial(ventana))
+    jugar_button = tk.Button(formulario_frame, text="SALIR", bg="#9E5B00", font=("Arial", 10, 'bold'), command=lambda:salir_pantalla_princial(ventana))
     jugar_button.grid(row=7, columnspan=3, pady=5, sticky="ew")
 
     titulo2_label = tk.Label(ventana, text="Tabla de Jugadores", font=("Arial", 35, 'bold'), bg="#630551", fg="white")
@@ -280,7 +280,7 @@ def verificar_respuesta(opcion,root):
         tiempo_total=(f"tiempo transcurrido: {int(minutos)}:{int(segundos)}")
         tiempo_total_bd = (f"{int(minutos)}:{int(segundos)}")
     else:
-        label_pregunta.configure(text="¡Has respondido todas las preguntas!", bg="#630551", font=("Arial", 20, 'bold'))
+        label_pregunta.configure(text="¡Has respondido todas las preguntas!", bg="#630551", font=("Arial", 26, 'bold'))
 
 
 
@@ -305,13 +305,13 @@ def fin_Juego(root, frame_pregunta):
     frame_Fin = tk.Frame(root, bg="#630551")
     frame_Fin.pack(pady=50)
 
-    agradecimiento_Label = tk.Label(frame_Fin, text="¡Muchas gracias por participar!", bg="#630551", font=("Arial", 20, 'bold'))
+    agradecimiento_Label = tk.Label(frame_Fin, text="¡Muchas gracias por participar!", bg="#630551", font=("Arial", 22, 'bold'), fg="white")
     agradecimiento_Label.pack()
 
-    label_1 = tk.Label(frame_Fin, text=f"Tiempo logrado: {tiempo_total}", bg="#630551",font=("Arial", 20, 'bold'))
+    label_1 = tk.Label(frame_Fin, text=f"Tiempo logrado: {tiempo_total}", bg="#630551",font=("Arial", 22, 'bold'), fg="white")
     label_1.pack()
 
-    label_2 = tk.Label(frame_Fin, text=f"Puntaje obtenido: {puntuacion}",bg="#630551", font=("Arial", 20, 'bold'))
+    label_2 = tk.Label(frame_Fin, text=f"Puntaje obtenido: {puntuacion}",bg="#630551", font=("Arial", 22, 'bold'), fg="white")
     label_2.pack()
 
     nombre_entry.delete(0, tk.END)
@@ -335,6 +335,58 @@ def cerrar_juego(ventana):
 crear_ventana()
 
 
+#base de datos
+"""create database JUEGO;
+use JUEGO;
+CREATE TABLE Preguntas (
+codpreguntas int PRIMARY KEY auto_increment ,
+preguntas VARCHAR(150) NOT NULL,
+respuestas varchar (150),
+respuestaErronea_uno varchar (250) not null,
+respuestaErronea_dos varchar (250) not null,
+respuestaErronea_tres varchar (250) not null);
+
+CREATE TABLE Jugador (
+codjugador int PRIMARY KEY auto_increment ,
+nombre varchar (150) NOT NULL,
+apellido varchar (150) not null,
+telefono varchar (150) not null,
+puntaje int not null,
+tiempo varchar (150) not null);
+
+
+
+insert into Preguntas(preguntas, respuestas, respuestaErronea_uno, respuestaErronea_dos, respuestaErronea_tres)
+values('¿En qué año se fundó el ISAUI?', '1983', '1970', '1990', '1995'),
+
+('¿Cuál fué el nombre del establecimiento educativo cuando se fundó?', 'COMPLEJO FACULTATIVO DE ENSEÑANZA SUPERIOR San Francisco de Asís (COFES Sn.FCO.DE ASIS)', 'INSTITUTO SANTA CLARA DE ASIS', 'COLEGIO SAN FRANCISCO JAVIER', 'INSTITUTO ARGENTINO	DE ENSEÑANZA SUPERIOR(IADES)'  ),
+
+('¿En qué año se convierte a colegio Nacional?', '22/07/85', '25/10/85', '06/08/85', '15/11/85' ),
+
+('¿Cuántos directores tuvo el Instituto hasta la fecha?', '4', '7', '5', '9' ),	
+
+('¿Cuántas carreras se dictan actualmente en el ISAUI ?', '6', '3', '5', '7'),
+
+('¿Cuál fué el primer número de teléfono del Instituto?', '41164', '42546', '44561', '48586'),
+
+('¿Qué es el workshop? ', 'Es una técnica de venta de las carreras del Inst.ISAUI', 'Es un evento para recudar fondos', 'Es una presentación de proyectos sin un fin en especial', 'Es un concierto'),
+
+('¿Qué carrera fué la pionera con los viajes en las materias de prácticas?', 'TÉCNICO Y GUIA SUPERIOR EN TURISMO', 'TÉCNICO SUPERIOR EN DESSARROLLO DE SOFTWARE', 'ENFERMERIA', 'DISEÑO DE ESPACIOS'),
+
+('¿Cómo era el edificio  educativo en sus comienzos?', 'UNA CASA CON 3 AMBIENTES QUE SE CONVIRTIERON EN AULAS', 'UNA CASONA ABANDONADA', 'UN CENTRO VECINAL', 'UNA BIBLIOTECA'),
+
+('¿ISAUI es un Instituto público ?', 'SI', 'NO','SEMI-PÚBLICA', 'SEMI-PRIVADA'),
+
+('¿A partir de que año la cooperadora comenzó a construir las aulas?', '1986', '1987', '1988', '1990'),
+
+('¿De dónde provenía el dinero para la construcción de aulas?', 'DEL BONO CONTRIBUCIÓN QUE ABONABAN LOS PADRES', 'DEL GOBIERNO NACIONAL', 'DE LA MUNICIPALIDAD DE VILLA CARLOS PAZ', 'DE DONACIONES'),
+
+('¿Quién fué el presidente de la cooperadora en los comienzos de la Institución?', 'SR.GATICA', 'SR.FARIAS', 'SR.BERTOLDI', 'SR.BERTOLDO'),
+
+('¿Quién es la presidenta de la cooperadora actualmente?','MASCHIO DANIELA', 'GERBAUDO ANDREA', 'BERTOLDO CARLA', 'PAEZ MARIELA'),
+
+('¿En qué época se logró la nacionalización?', 'LA PRESIDENCIA DE R.ALFONSÍN', 'LA PRESIDENCIA DE C.S.MENEM', 'LA PRESIDENCIA DE R.BIGNONE', 'LA PRESIDENCIA DE E.DUHALDE');
+"""
 
 
 
